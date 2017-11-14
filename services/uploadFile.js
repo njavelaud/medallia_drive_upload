@@ -32,10 +32,6 @@ function uploadFile(req, res, next) {
 					uploadUrl:uploadUrl,
 					username:username,
 					pwd:pwd,
-					boxLogo:images.box,
-					dropboxLogo:images.dropbox,
-					gDriveLogo:images.gDrive,
-					oneDriveLogo:images.oneDrive,
 					statusIcon:images.failure,
 					statusMessage:"Could not upload the file. Please try again later or reach out to your administrator"
 				});
@@ -46,10 +42,6 @@ function uploadFile(req, res, next) {
 					uploadUrl:uploadUrl,
 					username:username,
 					pwd:pwd,
-					boxLogo:images.box,
-					dropboxLogo:images.dropbox,
-					gDriveLogo:images.gDrive,
-					oneDriveLogo:images.oneDrive,
 					statusIcon:images.success,
 					statusMessage:"File uploaded"
 				});
