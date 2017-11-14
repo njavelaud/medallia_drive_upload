@@ -1,0 +1,17 @@
+{
+  "name": "medallia_drive_upload",
+  "version": "1.0.0",
+  "description": "This is a prototype for file upload from dropbox and potentially other drives",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Nico J",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "express": "^4.14.1",
+    "handlebars": "^4.0.11",
+    "hbs": "^4.0.1",
+    "request": "^2.79.0"
+  }
+}
