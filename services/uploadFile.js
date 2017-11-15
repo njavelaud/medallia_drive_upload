@@ -10,6 +10,7 @@ function uploadFile(req, res, next) {
 	var username=req.body.username;
 	var pwd=req.body.pwd;
 	var fileUrl=req.body.fileUrl;
+	var oauthToken=req.body.oauthToken;
 
 	// Simplistic call
 	//request.get(fileUrl).pipe(request.post(uploadUrl+"?"+username));
@@ -17,6 +18,7 @@ function uploadFile(req, res, next) {
 	// Get file from provided url...
 	request
 		.get(fileUrl)
+		.auth(null, null, true, oauthToken)
 		// Log errors
 		.on('error', function(err) {
 			console.log(err)

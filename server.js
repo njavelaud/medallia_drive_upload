@@ -13,3 +13,6 @@ server.set('view engine', 'hbs');
 server.listen(process.env.PORT || 3000, function(){
   console.log("Express server listening on port %d in %s mode", this.address().port, server.settings.env);
 });
+
+//Snipet to keep heroku alive
+//setInterval(request.get('https://medallia-drive-upload.herokuapp.com'), 20*60*1000);
