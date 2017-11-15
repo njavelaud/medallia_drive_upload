@@ -19,8 +19,14 @@
 	#oneDrive{
 	}
 </style>
+<!-- Dropbox SDK -->
 <script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="yhp8797q6qg7wju"></script> 
+<!-- Box SDK -->
 <script type="text/javascript" src="https://cdn01.boxcdn.net/js/static/select.js"></script>
+<!-- OneDrive SDK -->
+<script type="text/javascript" src="https://js.live.net/v7.2/OneDrive.js"></script>
+<!-- gDrive SDK -->
+<!-- -->
 <script type="text/javascript" >
 	document.onreadystatechange = () => {
 		if (document.readyState === 'complete') {
@@ -48,9 +54,26 @@
 					clientId: 'n321brgjwoarbbmyhbu4ldbggd8tdqjb',
 				    linkType: 'direct',
 				    multiselect: false
-				}
+				},
 				// gDrive to be added here
 				// oneDrive to be added here
+				oneDrive:{
+					//thNHWQF2{?[vknnvFR6298= app password
+					clientId: "7b87525d-393b-4524-adb1-67e9eaa51203",
+					action: "download",
+					multiSelect: false,
+					advanced: {},
+					success: function(files) {
+					 	console.log(files);
+						console.log(files.value);
+						console.log(files.value[0]);
+						document.getElementById("fileUrl").value=files.value[0]['@microsoft.graph.downloadUrl'];
+				        document.getElementById("fileName").innerHTML=files.value[0].name;
+				        document.getElementById("uploadButton").style.display="block";
+					},
+					cancel: function() { /* cancel handler */ },
+					error: function(e) { /* error handler */ }
+				}
 			};
 
 		    // Tie buttons with popup launcher
@@ -64,6 +87,7 @@
 			document.getElementById("gDrive").addEventListener('click', function() {
 			});
 		    document.getElementById("oneDrive").addEventListener('click', function() {
+		    	OneDrive.open(options.oneDrive);
 			});
 
 		    // ---- SOLUTION SPECIFIC CONFIG ----
