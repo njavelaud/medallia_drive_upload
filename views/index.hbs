@@ -20,21 +20,180 @@
 	}
 </style>
 <!-- Dropbox SDK - https://www.dropbox.com/static/api/2/dropins.js -->
-<script type="text/javascript" src="../sdk/dropbox_sdk.js" id="dropboxjs" data-app-key="yhp8797q6qg7wju"></script> 
+<!-- <script type="text/javascript" src="../sdk/dropbox_sdk.js" id="dropboxjs" data-app-key="yhp8797q6qg7wju"></script> -->
 <!-- Custom code to initialize picker for the app needs -->
-<script type="text/javascript" src="../sdk/dropbox_init.js"></script> 
+<!-- <script type="text/javascript" src="../sdk/dropbox_init.js"></script> -->
 <!-- Box SDK - https://cdn01.boxcdn.net/js/static/select.js -->
-<script type="text/javascript" src="../sdk/box_sdk.js"></script>
+<!-- <script type="text/javascript" src="../sdk/box_sdk.js"></script> -->
 <!-- Custom code to initialize picker for the app needs -->
-<script type="text/javascript" src="../sdk/box_init.js"></script> 
+<!-- <script type="text/javascript" src="../sdk/box_init.js"></script>  -->
 <!-- OneDrive SDK - https://js.live.net/v7.2/OneDrive.js -->
-<script type="text/javascript" src="../sdk/oneDrive_sdk.js"></script>
+<!-- <script type="text/javascript" src="../sdk/oneDrive_sdk.js"></script> -->
 <!-- Custom code to initialize picker for the app needs -->
-<script type="text/javascript" src="../sdk/oneDrive_init.js"></script> 
+<!-- <script type="text/javascript" src="../sdk/oneDrive_init.js"></script>  -->
 <!-- gDrive SDK - https://apis.google.com/js/api.js -->
-<script type="text/javascript" src="../sdk/gDrive_sdk.js"></script>
+<!-- <script type="text/javascript" src="../sdk/gDrive_sdk.js"></script> -->
 <!-- Custom code to initialize picker for the app needs -->
-<script type="text/javascript" src="../sdk/gDrive_init.js"></script> 
+<!-- <script type="text/javascript" src="../sdk/gDrive_init.js"></script>  -->
+
+<!-- Dropbox SDK -->
+<script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="yhp8797q6qg7wju"></script> 
+<!-- Box SDK -->
+<script type="text/javascript" src="https://cdn01.boxcdn.net/js/static/select.js"></script>
+<!-- OneDrive SDK -->
+<script type="text/javascript" src="https://js.live.net/v7.2/OneDrive.js"></script>
+<!-- gDrive SDK -->
+<script type="text/javascript" src="https://apis.google.com/js/api.js"></script>
+<!-- -->
+<script type="text/javascript" >
+	document.onreadystatechange = () => {
+		if (document.readyState === 'complete') {
+			// ---- SHARED CONFIG ----
+			options = {
+				// Dropbox widget initialization
+				dropbox:{
+					// Required. Called when a user selects an item in the Chooser.
+				    success: function(files) {
+				    	// Replace target of the form to include the file download url as a parameter
+				    	document.getElementById("drive").value="dropbox";
+				        document.getElementById("fileUrl").value=files[0].link;
+				        document.getElementById("fileName").innerHTML=files[0].name;
+				        document.getElementById("uploadButton").style.display="block";
+				    },
+				    // Optional. "preview" (default) is a preview link to the document for sharing,
+				    // "direct" is an expiring link to download the contents of the file. For more
+				    // information about link types, see Link types below.
+				    linkType: "direct", // or "direct"
+				    // Optional. A value of false (default) limits selection to a single file, while
+				    // true enables multiple file selection.
+				    multiselect: false // or true
+				},
+				// Box widget initialization
+				box:{
+					clientId: 'n321brgjwoarbbmyhbu4ldbggd8tdqjb',
+				    linkType: 'direct',
+				    multiselect: false
+				},
+				// gDrive to be added here
+				// oneDrive to be added here
+				oneDrive:{
+					//thNHWQF2{?[vknnvFR6298= app password
+					clientId: "7b87525d-393b-4524-adb1-67e9eaa51203",
+					action: "download",
+					multiSelect: false,
+					advanced: {},
+					success: function(files) {
+						document.getElementById("drive").value="oneDrive";
+						document.getElementById("fileUrl").value=files.value[0]['@microsoft.graph.downloadUrl'];
+				        document.getElementById("fileName").innerHTML=files.value[0].name;
+				        document.getElementById("uploadButton").style.display="block";
+					},
+					cancel: function() { /* cancel handler */ },
+					error: function(e) { /* error handler */ }
+				}
+			};
+
+			// ---- GDRIVE INIT ----
+            // The Browser API key obtained from the Google API Console.
+			var developerKey = 'AIzaSyCGKo2AQlmFJ2BqowpsDmeYf3gmv7DVZ3Y';
+
+			// The Client ID obtained from the Google API Console. Replace with your own Client ID.
+			var clientId = "773917306404-72m9gnohalig1sp2l99edbghnb1cq15h.apps.googleusercontent.com";
+
+			// Scope to use to access user's photos.
+			var scope = ['https://www.googleapis.com/auth/drive.readonly'];
+
+			var pickerApiLoaded = false;
+			var oauthToken;
+
+			// Use the API Loader script to load google.picker and gapi.auth.
+			function onApiLoad() {
+			gapi.load('auth', {'callback': onAuthApiLoad});
+			gapi.load('picker', {'callback': onPickerApiLoad});
+			}
+
+			function onAuthApiLoad() {
+			window.gapi.auth.authorize(
+			    {
+			      'client_id': clientId,
+			      'scope': scope,
+			      'immediate': false
+			    },
+			    handleAuthResult);
+			}
+
+			function onPickerApiLoad() {
+			pickerApiLoaded = true;
+			createPicker();
+			}
+
+			function handleAuthResult(authResult) {
+			if (authResult && !authResult.error) {
+			  oauthToken = authResult.access_token;
+			  createPicker();
+			}
+			}
+
+			// Create and render a Picker object for picking user Photos.
+			function createPicker() {
+			if (pickerApiLoaded && oauthToken) {
+			  var picker = new google.picker.PickerBuilder().
+			      addView(google.picker.ViewId.DOCS).
+			      setOAuthToken(oauthToken).
+			      setDeveloperKey(developerKey).
+			      setCallback(pickerCallback).
+			      build();
+			  picker.setVisible(true);
+			}
+			}
+
+			// A simple callback implementation.
+			function pickerCallback(files) {
+				if (files[google.picker.Response.ACTION] == google.picker.Action.PICKED) {
+				  var file = files[google.picker.Response.DOCUMENTS][0];
+				}
+				document.getElementById("drive").value="gDrive";
+				document.getElementById("fileUrl").value='https://www.googleapis.com/drive/v2/files/'+file.id+'?alt=media';
+		        document.getElementById("fileName").innerHTML=file.name;
+		        document.getElementById("uploadButton").style.display="block";
+		        document.getElementById("oauthToken").value=oauthToken;
+			}
+
+		    // Tie buttons with popup launcher
+		    // Note to self: include tap event for mobile support
+		    document.getElementById("dropbox").addEventListener('click', function() {
+			    Dropbox.choose(options.dropbox);
+			});
+		    document.getElementById("box").addEventListener('click', function() {
+			    boxSelect.launchPopup();
+			});
+			document.getElementById("gDrive").addEventListener('click', function() {
+				onApiLoad()
+			});
+		    document.getElementById("oneDrive").addEventListener('click', function() {
+		    	OneDrive.open(options.oneDrive);
+			});
+
+		    // ---- SOLUTION SPECIFIC CONFIG ----
+			// ---- Box rules ----
+			var boxSelect = new BoxSelect(options.box);
+		    // Successful callback handler
+		    boxSelect.success(function(files) {
+		        console.log(files);
+		        // Replace target of the form to include the file download url as a parameter
+		        document.getElementById("drive").value="box";
+		        document.getElementById("fileUrl").value=files[0].url;
+		        document.getElementById("fileName").innerHTML=files[0].name;
+		        document.getElementById("uploadButton").style.display="block";
+		        boxSelect.closePopup();
+		    });
+		    // Cancel callback handler
+		    boxSelect.cancel(function() {
+		        console.log("The user clicked cancel or closed the popup");
+		    });
+		}	
+	};
+</script>
 <table>
 	<tr>
 		<td class="driveList">
