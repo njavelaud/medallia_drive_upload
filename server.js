@@ -7,6 +7,8 @@ const routes=require('./routes/index');
 
 const server=express();
 
+//server.use(express.static(__dirname+'/static'));
+server.use(express.static('static'));
 server.use(routes);
 server.set('view engine', 'hbs');
 
