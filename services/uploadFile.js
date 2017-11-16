@@ -12,7 +12,7 @@ function uploadFile(req, res, next) {
 	var fileUrl=req.body.fileUrl;
 	var oauthToken=req.body.oauthToken;
 	
-	console.log('uploadUrl:'uploadUrl);
+	console.log('uploadUrl:'+uploadUrl);
 	console.log('username: '+username);
 	console.log('pwd:'+pwd);
 	console.log('fileUrl:'+fileUrl);
