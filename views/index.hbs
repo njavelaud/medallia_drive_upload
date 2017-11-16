@@ -37,22 +37,23 @@
 <!-- <script type="text/javascript" src="../sdk/gDrive_init.js"></script>  -->
 
 <!-- Dropbox SDK -->
-<script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="yhp8797q6qg7wju"></script> 
+<!--script type="text/javascript" src="https://www.dropbox.com/static/api/2/dropins.js" id="dropboxjs" data-app-key="yhp8797q6qg7wju"></script--> 
+<script type="text/javascript" src="/sdk/dropbox_sdk.js" id="dropboxjs" data-app-key="yhp8797q6qg7wju"></script>
 <!-- Custom code to initialize picker for the app needs -->
 <script type="text/javascript" src="/js/dropbox_init.js"></script>
 <!-- Box SDK -->
-<script type="text/javascript" src="https://cdn01.boxcdn.net/js/static/select.js"></script>
+<script type="text/javascript" src="/sdk/box_sdk.js"></script>
 <!-- Custom code to initialize picker for the app needs -->
 <script type="text/javascript" src="/js/box_init.js"></script>
 <!-- OneDrive SDK -->
-<script type="text/javascript" src="https://js.live.net/v7.2/OneDrive.js"></script>
+<script type="text/javascript" src="/sdk/oneDrive_sdk.js"></script>
 <!-- Custom code to initialize picker for the app needs -->
 <script type="text/javascript" src="/js/oneDrive_init.js"></script>
 <!-- gDrive SDK -->
-<script type="text/javascript" src="https://apis.google.com/js/api.js"></script>
+<script type="text/javascript" src="/sdk/gDrive_sdk.js"></script>
 <!-- Custom code to initialize picker for the app needs -->
 <script type="text/javascript" src="/js/gDrive_init.js"></script>
-
+<!-- Launch functions from custom codes loaded above -->
 <script type="text/javascript" >
 	document.onreadystatechange = () => {
 		if (document.readyState === 'complete') {
@@ -64,7 +65,6 @@
 		}	
 	};
 </script>
--->
 <table>
 	<tr>
 		<td class="driveList">
