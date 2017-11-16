@@ -11,20 +11,20 @@ function uploadFile(req, res, next) {
 	var pwd=req.body.pwd;
 	var fileUrl=req.body.fileUrl;
 	var oauthToken=req.body.oauthToken;
-	
+	/*
 	console.log('uploadUrl:'+uploadUrl);
 	console.log('username: '+username);
 	console.log('pwd:'+pwd);
 	console.log('fileUrl:'+fileUrl);
 	console.log('oauthToken:'+oauthToken);
-
+	*/
 	// Simplistic call
 	//request.get(fileUrl).pipe(request.post(uploadUrl+"?"+username));
 
 	// Get file from provided url...
 	request
 		.get(fileUrl)
-		//.auth(username, null, true, oauthToken)
+		.auth(null, null, true, oauthToken)
 		// Log errors
 		.on('error', function(err) {
 			console.log(err)
