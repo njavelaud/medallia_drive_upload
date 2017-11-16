@@ -18,7 +18,7 @@ function uploadFile(req, res, next) {
 	// Get file from provided url...
 	request
 		.get(fileUrl)
-		.auth(null, null, true, oauthToken)
+		.auth(username, null, true, oauthToken)
 		// Log errors
 		.on('error', function(err) {
 			console.log(err)
