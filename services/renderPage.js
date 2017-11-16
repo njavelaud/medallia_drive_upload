@@ -1,7 +1,11 @@
 function renderPage(req, res, next) {
-	res.render('index',{
+	console.log(req);
+	console.log(req.query.companyUrl);
+	res
+	.header('X-FRAME-OPTIONS', 'ALLOW-FROM ' + req.query.companyUrl)
+	.render('index',{
 		// Extract data from url parameters
-		uploadUrl:req.query.uploadUrl,
+		companyUrl:req.query.companyUrl,
 		username:req.query.username,
 		pwd:req.query.pwd,
 	});

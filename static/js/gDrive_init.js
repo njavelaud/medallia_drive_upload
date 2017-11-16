@@ -42,11 +42,13 @@ function gDriveInit(){
 
 	// Create and render a Picker object for picking user Photos.
 	function createPicker() {
+		console.log(window.location.protocol + '//' + window.location.host);
 	if (pickerApiLoaded && oauthToken) {
 	  var picker = new google.picker.PickerBuilder().
 	      addView(google.picker.ViewId.DOCS).
 	      setOAuthToken(oauthToken).
 	      setDeveloperKey(developerKey).
+	      setOrigin(window.location.protocol + '//' + window.location.host).
 	      setCallback(pickerCallback).
 	      build();
 	  picker.setVisible(true);
