@@ -11,6 +11,12 @@ function uploadFile(req, res, next) {
 	var pwd=req.body.pwd;
 	var fileUrl=req.body.fileUrl;
 	var oauthToken=req.body.oauthToken;
+	
+	console.log('uploadUrl:'uploadUrl);
+	console.log('username: '+username);
+	console.log('pwd:'+pwd);
+	console.log('fileUrl:'+fileUrl);
+	console.log('oauthToken:'+oauthToken);
 
 	// Simplistic call
 	//request.get(fileUrl).pipe(request.post(uploadUrl+"?"+username));
@@ -39,6 +45,7 @@ function uploadFile(req, res, next) {
 				});
 			})
 			.on('response', function(response){
+				console.log(response);
 				res.render('status',{
 					// Extract data from url parameters
 					uploadUrl:uploadUrl,
