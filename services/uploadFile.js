@@ -45,7 +45,7 @@ function uploadFile(req, res, next) {
 				});
 			})
 			.on('response', function(response){
-				console.log(response);
+				//console.log(response);
 				res.render('status',{
 					// Extract data from url parameters
 					uploadUrl:uploadUrl,

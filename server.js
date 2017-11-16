@@ -15,4 +15,7 @@ server.listen(process.env.PORT || 3000, function(){
 });
 
 //Snipet to keep heroku alive
-//setInterval(request.get('https://medallia-drive-upload.herokuapp.com'), 20*60*1000);
+function wakeMeUp(){
+	request.get('https://medallia-drive-upload.herokuapp.com/');
+}
+setInterval(function(){wakeMeUp();}, 20*60*1000);
